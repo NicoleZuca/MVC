@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <form id="frm">
+        <div class="col-lg-6 col-lg-offset-3">
+            Usuario
+            <input type="text" name="user" />
+            Password
+            <input type="password" name="password" />
+            <input type="submit" class="btn btn-success" value="Entrar" />
+        </div>
+    </form>
+</div>
+
+<!--De la siguiente forma es como puedo poner código c#-->
+@{
+    var a = 1;
+
+}
+
+<!--Llamar la sección del js-->
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+
+        $("#frm").submit(function (e) {
+            e.preventDefault();
+            //resolver una URL (~ le indica que se vaya a la raíz)
+            url = "@Url.Content("~/Access/Enter")"
+            //esta función da los atributos que están dentro serializados, es decir ya listos para la función
+            parametros = $(this).serialize(); //el this selecciona al mismo padre que está selecconado, invoca la función anónima
+
+            $.post(url, parametros, function (data) {
+
+                //cuando la respuesta sea 1 va a ser éxitoso
+                if (data == "1") { 
+                    document.location.href = "@Url.Content("~/")";
+                } else {
+                    alert(data);
+                }
+            })
+        })
+    })
+    </script>
+}
